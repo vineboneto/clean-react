@@ -11,14 +11,19 @@
     "moduleResolution": "node",
     "jsx": "react",
     "baseUrl": "src",
+    "rootDirs": ["src", "tests"],
     "allowJs": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true
+    "noEmit": true,
+    "paths": {
+      "@/*": ["*"]
+    }
   },
   "include": [
-    "src"
+    "src",
+    "tests"
   ],
 }
