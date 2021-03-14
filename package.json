@@ -6,24 +6,27 @@
   "author": "vineboneto <vineboneto@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "webpack-dev-server --open ",
     "husky:clean": "rimraf .config",
     "husky:install": "husky install .config/husky",
     "husky:push": "husky add .config/husky/pre-push \"yarn test:ci\"",
     "husky:commit": "husky add .config/husky/pre-commit \"yarn lint-staged && yarn test:staged\"",
     "husky:config": "(yarn husky:commit) & (yarn husky:push)",
     "husky": "(yarn husky:clean) & (yarn husky:install) & yarn husky:config",
-    "test": "jest --passWithNoTests",
+    "test": "jest --passWithNoTests --no-cache --runInBand",
     "test:watch": "yarn test - --watch",
     "test:staged": "yarn test - --findRelatedTests",
     "test:ci": "yarn test - --coverage"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/faker": "^5.1.7",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.34",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.2",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
+    "clean-webpack-plugin": "^3.0.0",
     "eslint": "^7.21.0",
     "eslint-config-standard-with-typescript": "^20.0.0",
     "eslint-plugin-import": "^2.22.1",
@@ -43,7 +46,6 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "@types/axios": "^0.14.0",
     "axios": "^0.21.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
