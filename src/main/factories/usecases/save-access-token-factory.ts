@@ -1,8 +1,7 @@
 import { LocalSaveAccessToken } from '@/data/usecases'
 import { SaveAccessToken } from '@/domain/usecases'
-import { LocalStorageAdapter } from '@/infra/cache/local-storage'
+import { makeLocalStorageAdapter } from '@/main/factories/cache'
 
 export const makeSaveAccessToken = (): SaveAccessToken => {
-  const localStorageAdapter = new LocalStorageAdapter()
-  return new LocalSaveAccessToken(localStorageAdapter)
+  return new LocalSaveAccessToken(makeLocalStorageAdapter())
 }
