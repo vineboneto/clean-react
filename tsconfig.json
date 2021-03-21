@@ -22,4 +22,7 @@
     "src",
     "tests"
   ],
+  "exclude": [
+    "src/main/test/cypress"
+  ]
 }
