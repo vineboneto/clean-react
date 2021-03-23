@@ -85,7 +85,7 @@ describe('Login', () => {
       }
     })
     cy.getByTestId('email').focus().type(faker.internet.email())
-    cy.getByTestId('password').focus().type(faker.internet.password())
+    cy.getByTestId('password').focus().type(faker.internet.password()).type('{enter}')
     cy.getByTestId('submit').click()
     cy.getByTestId('spinner').should('not.exist')
     cy.getByTestId('main-error').should('contain.text', 'Tente novamente mais tarde')
