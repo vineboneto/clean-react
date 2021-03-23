@@ -15,11 +15,9 @@ describe('Login', () => {
   })
 
   it('Should load with correct initial state', () => {
-    cy.getByTestId('email')
-      .should('have.attr', 'readOnly')
+    cy.getByTestId('email').should('have.attr', 'readOnly')
     FormHelper.testInputStatus('email', 'Campo obrigatório')
-    cy.getByTestId('password')
-      .should('have.attr', 'readOnly')
+    cy.getByTestId('password').should('have.attr', 'readOnly')
     FormHelper.testInputStatus('password', 'Campo obrigatório')
     cy.getByTestId('submit').should('have.attr', 'disabled')
     cy.getByTestId('error-wrap').should('not.have.descendants')
