@@ -77,4 +77,12 @@ describe('SignUp', () => {
     FormHelper.testMainError('Tente novamente mais tarde')
     FormHelper.testUrl('/signup')
   })
+
+  it('Should present save accessToken if valid credentials are provided', () => {
+    Http.mockOk()
+    simulateValidSubmit()
+    cy.getByTestId('error-wrap').should('not.exist')
+    FormHelper.testUrl('/')
+    FormHelper.testLocalStorageItem('accessToken')
+  })
 })
