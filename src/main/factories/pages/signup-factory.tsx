@@ -1,6 +1,6 @@
 import React from 'react'
 import { SignUp } from '@/presentation/pages'
-import { makeRemoteAddAccount, makeLocalUpdateCurrentAccount } from '@/main/factories/usecases'
+import { makeRemoteAddAccount } from '@/main/factories/usecases'
 import { makeSignUpValidation } from '@/main/factories/pages'
 
 export const makeSignUp: React.FC = () => {
@@ -8,7 +8,6 @@ export const makeSignUp: React.FC = () => {
     <SignUp
       addAccount={makeRemoteAddAccount()}
       validation={makeSignUpValidation()}
-      updateCurrentAccount={makeLocalUpdateCurrentAccount()}
     />
   )
 }
