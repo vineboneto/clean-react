@@ -5,7 +5,7 @@ import faker from 'faker'
 import { render, RenderResult, fireEvent, waitFor, cleanup } from '@testing-library/react'
 
 import { InvalidCredentialsError } from '@/domain/errors'
-import { ApiContext } from '@/presentation/components/contexts'
+import { ApiContext } from '@/presentation/contexts'
 import { Login } from '@/presentation/pages'
 import {
   ValidationStub,

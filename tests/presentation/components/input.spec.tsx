@@ -1,7 +1,7 @@
 import React from 'react'
 import { fireEvent, render, RenderResult } from '@testing-library/react'
 import { Input } from '@/presentation/components'
-import { FormContext } from '@/presentation/components/contexts'
+import { FormContext } from '@/presentation/contexts'
 
 import faker from 'faker'
 

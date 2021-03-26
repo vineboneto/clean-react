@@ -5,7 +5,7 @@ import { createMemoryHistory } from 'history'
 import faker from 'faker'
 
 import { SignUp } from '@/presentation/pages'
-import { ApiContext } from '@/presentation/components/contexts'
+import { ApiContext } from '@/presentation/contexts'
 import { Helper, ValidationStub, AddAccountSpy } from '@/tests/presentation/mocks'
 import { EmailInUseError } from '@/domain/errors'
 import { AccountModel } from '@/domain/models'
