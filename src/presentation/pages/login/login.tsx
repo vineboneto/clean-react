@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import Styles from './login-styles.scss'
 import { Footer, Input, FormStatus, LoginHeader, SubmitButton } from '@/presentation/components'
-import Context from '@/presentation/components/contexts/form/form-content'
+import { FormContext } from '@/presentation/components/contexts'
 import { Authentication, UpdateCurrentAccount } from '@/domain/usecases'
 import { Validation } from '@/presentation/protocols'
 
@@ -61,7 +61,7 @@ const Login: React.FC<Props> = ({ validation, authentication, updateCurrentAccou
   return (
     <div className={Styles.loginWrap}>
       <LoginHeader />
-      <Context.Provider value={{ state, setState }}>
+      <FormContext.Provider value={{ state, setState }}>
         <form data-testid="form" className={Styles.form} onSubmit={handleSubmit}>
           <h2>Login</h2>
           <Input type="email" name="email" placeholder="Digite seu e-mail" />
@@ -70,7 +70,7 @@ const Login: React.FC<Props> = ({ validation, authentication, updateCurrentAccou
           <Link data-testid="signup-link" to="/signup" className={Styles.link}>Criar Conta</Link>
           <FormStatus />
         </form>
-      </Context.Provider>
+      </FormContext.Provider>
       <Footer />
     </div>
   )
