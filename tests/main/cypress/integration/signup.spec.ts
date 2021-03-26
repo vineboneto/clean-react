@@ -87,7 +87,7 @@ describe('SignUp', () => {
     simulateValidSubmit()
     cy.getByTestId('error-wrap').should('not.exist')
     FormHelper.testUrl('/')
-    FormHelper.testLocalStorageItem('accessToken')
+    FormHelper.testLocalStorageItem('account')
   })
 
   it('Should prevent multiple submits', () => {
