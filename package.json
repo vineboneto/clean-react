@@ -16,7 +16,7 @@
     "husky": "(yarn husky:clean) & (yarn husky:install) & yarn husky:config",
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest --passWithNoTests --silent --runInBand --no-cache",
     "test:watch": "yarn test - --watch",
-    "test:staged": "yarn test - --findRelatedTests",
+    "test:staged": "yarn test - --findRelatedTests -o",
     "test:ci": "yarn test - --coverage",
     "test:coveralls": "yarn test:ci && coveralls < coverage/lcov.info",
     "test:cypress": "cypress open"
