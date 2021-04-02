@@ -1,14 +1,24 @@
 import { makeSignUpValidation } from '@/main/factories/pages'
-import { ValidationBuilder, ValidationComposite } from '@/validation/validators'
+import {
+  CompareFieldsValidation,
+  EmailValidation,
+  RequiredFieldValidation,
+  ValidationComposite,
+  MinLengthValidation
+} from '@/validation/validators'
 
 describe('SignUpValidationFactory', () => {
   test('Should make ValidationsComposite return correct validations', () => {
     const composite = makeSignUpValidation()
     expect(composite).toEqual(ValidationComposite.build([
-      ...ValidationBuilder.field('name').required().min(5).build(),
-      ...ValidationBuilder.field('email').required().email().build(),
-      ...ValidationBuilder.field('password').required().min(5).build(),
-      ...ValidationBuilder.field('passwordConfirmation').required().sameAs('password').min(5).build()
+      new RequiredFieldValidation('name'),
+      new MinLengthValidation('name', 5),
+      new RequiredFieldValidation('email'),
+      new EmailValidation('email'),
+      new RequiredFieldValidation('password'),
+      new MinLengthValidation('password', 5),
+      new RequiredFieldValidation('passwordConfirmation'),
+      new CompareFieldsValidation('passwordConfirmation', 'password')
     ]))
   })
 })
