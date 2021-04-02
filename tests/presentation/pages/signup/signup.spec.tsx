@@ -6,13 +6,14 @@ import faker from 'faker'
 
 import { SignUp } from '@/presentation/pages'
 import { ApiContext } from '@/presentation/contexts'
-import { Helper, ValidationStub, AddAccountSpy } from '@/tests/presentation/mocks'
+import { Helper, ValidationStub } from '@/tests/presentation/mocks'
+import { AddAccountSpy } from '@/tests/domain/mocks'
 import { EmailInUseError } from '@/domain/errors'
-import { AccountModel } from '@/domain/models'
+import { AddAccount } from '@/domain/usecases'
 
 type Types = {
   addAccountSpy: AddAccountSpy
-  setCurrentAccountMock: (account: AccountModel) => void
+  setCurrentAccountMock: (account: AddAccount.Model) => void
 }
 
 type Params = {
