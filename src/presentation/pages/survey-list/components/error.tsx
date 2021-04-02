@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import Styles from './error-styles.scss'
 import { SurveyContext } from '@/presentation/pages/survey-list/context'
 
 const Error: React.FC = () => {
@@ -7,9 +8,10 @@ const Error: React.FC = () => {
   const reload = (): void => {
     setState({ surveys: [], error: '', reload: !state.reload })
   }
+  console.log(state.error)
 
   return (
-    <div>
+    <div className={Styles.errorWrap}>
       <span data-testid="error">{state.error}</span>
       <button data-testid="reload" onClick={reload}>Tentar novamente</button>
     </div>
