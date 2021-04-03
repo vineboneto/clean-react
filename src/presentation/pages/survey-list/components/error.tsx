@@ -8,7 +8,6 @@ const Error: React.FC = () => {
   const reload = (): void => {
     setState({ surveys: [], error: '', reload: !state.reload })
   }
-  console.log(state.error)
 
   return (
     <div className={Styles.errorWrap}>
