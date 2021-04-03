@@ -1,8 +1,18 @@
-import * as FormHelper from '../support/form-helpers'
-import * as Helper from '../support/helpers'
-import * as Http from '../support/signup-mocks'
+import * as FormHelper from '../utils/form-helpers'
+import * as Helper from '../utils/helpers'
+import * as Http from '../utils/http-mocks'
 
 import faker from 'faker'
+
+const localServerUrl = 'http://localhost:5050/api/signup'
+
+const mockEmailInUseError = (): void => Http.mockForbiddenError(localServerUrl, 'POST')
+const mockUnexpectedError = (): void => Http.mockServerError(localServerUrl, 'POST')
+const mockSuccess = (): void => {
+  cy.fixture('account').then(account => {
+    Http.mockOk(localServerUrl, 'POST', account)
+  })
+}
 
 const populateFields = (): void => {
   cy.getByTestId('name').focus().type(faker.random.alphaNumeric(7))
@@ -63,21 +73,21 @@ describe('SignUp', () => {
   })
 
   it('Should present EmailInUseError on 403', () => {
-    Http.mockEmailInUseError()
+    mockEmailInUseError()
     simulateValidSubmit()
     FormHelper.testMainError('Esse e-mail já está em uso')
     Helper.testUrl('/signup')
   })
 
   it('Should present UnexpectedError on 400', () => {
-    Http.mockUnexpectedError()
+    mockUnexpectedError()
     simulateValidSubmit()
     FormHelper.testMainError('Tente novamente mais tarde')
     Helper.testUrl('/signup')
   })
 
-  it('Should present save accessToken if valid credentials are provided', () => {
-    Http.mockOk()
+  it('Should store account on localStorage if valid credentials are provided', () => {
+    mockSuccess()
     simulateValidSubmit()
     cy.getByTestId('error-wrap').should('not.exist')
     Helper.testUrl('/')
@@ -85,7 +95,7 @@ describe('SignUp', () => {
   })
 
   it('Should prevent multiple submits', () => {
-    Http.mockOk()
+    mockSuccess()
     populateFields()
     cy.getByTestId('submit').dblclick()
     cy.wait('@request')
@@ -93,7 +103,7 @@ describe('SignUp', () => {
   })
 
   it('Should not submit if form is invalid', () => {
-    Http.mockOk()
+    mockSuccess()
     cy.getByTestId('email').focus().type(faker.internet.email()).type('{enter}')
     Helper.testHttpCallsCount(0)
   })
