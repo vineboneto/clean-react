@@ -1,4 +1,4 @@
-import { AccessDeniedError } from '@/domain/errors'
+import { AccessDeniedError, UnexpectedError } from '@/domain/errors'
 import { HttpGetClient, HttpStatusCode } from '@/data/protocols'
 
 export class RemoteLoadSurveyResult {
@@ -9,8 +9,9 @@ export class RemoteLoadSurveyResult {
   async load (): Promise<void> {
     const httpResponse = await this.httpGetClient.get({ url: this.url })
     switch (httpResponse.statusCode) {
+      case HttpStatusCode.ok: break
       case HttpStatusCode.forbidden: throw new AccessDeniedError()
-      default: return null
+      default: throw new UnexpectedError()
     }
   }
 }
