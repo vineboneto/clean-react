@@ -3,5 +3,6 @@
   "fixturesFolder": "tests/main/cypress/fixtures",
   "supportFile": "tests/main/cypress/support/index.js",
   "pluginsFile": "tests/main/cypress/plugins/index.js",
-  "integrationFolder": "tests/main/cypress/integration"
+  "integrationFolder": "tests/main/cypress/integration",
+  "video": false
 }
