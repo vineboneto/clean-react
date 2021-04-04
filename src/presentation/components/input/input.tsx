@@ -10,7 +10,7 @@ const Input: React.FC<Props> = (props: Props) => {
   const inputRef = useRef<HTMLInputElement>()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
-    setState({ ...state, [e.target.name]: e.target.value })
+    setState(old => ({ ...old, [e.target.name]: e.target.value }))
 
   return (
     <div
