@@ -4,7 +4,7 @@ import * as Http from '../utils/http-mocks'
 
 import faker from 'faker'
 
-const localServerUrl = 'http://localhost:5050/api/signup'
+const localServerUrl = '/signup'
 
 const mockEmailInUseError = (): void => Http.mockForbiddenError(localServerUrl, 'POST')
 const mockUnexpectedError = (): void => Http.mockServerError(localServerUrl, 'POST')

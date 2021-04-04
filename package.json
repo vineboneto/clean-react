@@ -1,6 +1,6 @@
 {
   "name": "clean-react",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "main": "index.js",
   "repository": "https://github.com/vineboneto/clean-react.git",
   "author": "vineboneto <vineboneto@gmail.com>",
@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node index",
     "dev:base": "webpack serve --config webpack.dev.js",
-    "dev": "yarn dev:base - --open",
+    "dev": "yarn dev:base --open",
     "build": "webpack --config webpack.prod.js",
     "husky": "node husky-config.js",
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest --passWithNoTests --silent --runInBand --no-cache",
