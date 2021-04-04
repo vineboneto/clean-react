@@ -11,7 +11,7 @@ const mockSuccess = (): void => {
   })
 }
 
-describe.only('SurveyList', () => {
+describe('SurveyList', () => {
   beforeEach(() => {
     cy.fixture('account').then(account => {
       Helper.setLocalStorageItem('account', account)
