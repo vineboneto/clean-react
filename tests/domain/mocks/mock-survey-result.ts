@@ -10,23 +10,23 @@ export const mockSurveyResultModel = (): LoadSurveyResult.Model => ({
       answer: faker.random.words(),
       count: faker.datatype.number(),
       percent: faker.datatype.number(),
-      isCurrentAccountAnswer: faker.datatype.boolean()
+      isCurrentAccountAnswer: true,
+      image: faker.internet.url()
     },
     {
       answer: faker.random.words(),
       count: faker.datatype.number(),
       percent: faker.datatype.number(),
-      isCurrentAccountAnswer: faker.datatype.boolean(),
-      image: faker.internet.url()
+      isCurrentAccountAnswer: false
     }
   ]
 })
 
 export class LoadSurveyResultSpy implements LoadSurveyResult {
   callsCount = 0
-  surveys = mockSurveyResultModel()
+  surveyResult = mockSurveyResultModel()
   async load (): Promise<LoadSurveyResult.Model> {
     this.callsCount++
-    return this.surveys
+    return this.surveyResult
   }
 }
