@@ -9,7 +9,7 @@ export namespace LoadSurveyResult {
     answers: AnswerModel[]
   }
 
-  type AnswerModel = {
+  export type AnswerModel = {
     image?: string
     answer: string
     count: number
