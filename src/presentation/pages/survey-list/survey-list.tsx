@@ -39,7 +39,6 @@ const SurveyList: React.FC<Props> = ({ loadSurveyList }: Props) => {
             : <SurveyListItem surveys={state.surveys} />
           }
       </div>
-
       <Footer />
     </div>
   )
