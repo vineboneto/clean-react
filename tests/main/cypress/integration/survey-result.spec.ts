@@ -68,7 +68,7 @@ describe('SurveyResult', () => {
     })
   })
 
-  describe.only('save', () => {
+  describe('save', () => {
     const mockUnexpectedError = (): void => Http.mockServerError(path, 'PUT')
     const mockAccessDeniedError = (): void => Http.mockForbiddenError(path, 'PUT')
     const mockSaveSuccess = (): void => {
