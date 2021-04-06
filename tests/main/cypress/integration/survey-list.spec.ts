@@ -16,13 +16,13 @@ describe('SurveyList', () => {
   it('Should present error on UnexpectedError', () => {
     mockUnexpectedError()
     cy.visit('')
-    cy.getByTestId('error').should('contain.text', 'Algo de errado aconteceu. Tente novamente em breve.')
+    cy.getByTestId('error').should('contain.text', 'Algo de errado aconteceu. Tente novamente mais tarde')
   })
 
   it('Should reload on button click', () => {
     mockUnexpectedError()
     cy.visit('')
-    cy.getByTestId('error').should('contain.text', 'Algo de errado aconteceu. Tente novamente em breve.')
+    cy.getByTestId('error').should('contain.text', 'Algo de errado aconteceu. Tente novamente mais tarde')
     mockSuccess()
     cy.getByTestId('reload').click()
     cy.get('li:not(:empty)').should('have.length', 2)
@@ -48,10 +48,9 @@ describe('SurveyList', () => {
     Helper.testUrl('/login')
   })
 
-  it('Should present survey items', () => {
+  it.only('Should present survey items', () => {
     mockSuccess()
     cy.visit('')
-    cy.get('li:empty').should('have.length', 4)
     cy.get('li:not(:empty)').should('have.length', 2)
     cy.get('li:nth-child(1)').then(li => {
       assert.equal(li.find('[data-testid="day"]').text(), '03')
@@ -63,9 +62,9 @@ describe('SurveyList', () => {
       })
     })
     cy.get('li:nth-child(2)').then(li => {
-      assert.equal(li.find('[data-testid="day"]').text(), '20')
-      assert.equal(li.find('[data-testid="month"]').text(), 'out')
-      assert.equal(li.find('[data-testid="year"]').text(), '2020')
+      assert.equal(li.find('[data-testid="day"]').text(), '03')
+      assert.equal(li.find('[data-testid="month"]').text(), 'fev')
+      assert.equal(li.find('[data-testid="year"]').text(), '2018')
       assert.equal(li.find('[data-testid="question"]').text(), 'Question 2')
       cy.fixture('icons').then(icon => {
         assert.equal(li.find('[data-testid="icon"]').attr('src'), icon.thumbDown)

@@ -7,7 +7,7 @@ const mockLoadSuccess = (): void => {
   cy.fixture('load-survey-result').then((surveyResult) => Http.mockOk(path, 'GET', surveyResult))
 }
 
-describe.only('SurveyResult', () => {
+describe('SurveyResult', () => {
   describe('load', () => {
     const mockUnexpectedError = (): void => Http.mockServerError(path, 'GET')
     const mockAccessDeniedError = (): void => Http.mockForbiddenError(path, 'GET')
