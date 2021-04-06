@@ -2,6 +2,7 @@ import { RemoteLoadSurveyResult } from '@/data/usecases'
 import { HttpStatusCode } from '@/data/protocols'
 import { HttpClientSpy, mockRemoteSurveyResultModel } from '@/tests/data/mocks'
 import faker from 'faker'
+import { AccessDeniedError, UnexpectedError } from '@/domain/errors'
 
 type SutTypes = {
   sut: RemoteLoadSurveyResult
@@ -36,7 +37,7 @@ describe('RemoteLoadSurveyResult', () => {
       statusCode: HttpStatusCode.forbidden
     }
     const promise = sut.load()
-    await expect(promise).rejects.toThrow()
+    await expect(promise).rejects.toThrow(new AccessDeniedError())
   })
 
   test('Should throw UnexpectedError if HttpGetClient returns 404', async () => {
@@ -45,7 +46,7 @@ describe('RemoteLoadSurveyResult', () => {
       statusCode: HttpStatusCode.notFound
     }
     const promise = sut.load()
-    await expect(promise).rejects.toThrow()
+    await expect(promise).rejects.toThrow(new UnexpectedError())
   })
 
   test('Should throw UnexpectedError if HttpGetClient returns 500', async () => {
@@ -54,7 +55,7 @@ describe('RemoteLoadSurveyResult', () => {
       statusCode: HttpStatusCode.serverError
     }
     const promise = sut.load()
-    await expect(promise).rejects.toThrow()
+    await expect(promise).rejects.toThrow(new UnexpectedError())
   })
 
   test('Should return a survey result on 200', async () => {
