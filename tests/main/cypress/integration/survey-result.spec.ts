@@ -67,4 +67,22 @@ describe('SurveyResult', () => {
       Helper.testUrl('/')
     })
   })
+
+  describe.only('save', () => {
+    const mockUnexpectedError = (): void => Http.mockServerError(path, 'PUT')
+
+    beforeEach(() => {
+      cy.fixture('account').then(account => {
+        Helper.setLocalStorageItem('account', account)
+      })
+      mockLoadSuccess()
+      cy.visit('/surveys/any_id')
+    })
+
+    it('Should present error on UnexpectedError', () => {
+      mockUnexpectedError()
+      cy.get('li:nth-child(2)').click()
+      cy.getByTestId('error').should('contain.text', 'Algo de errado aconteceu. Tente novamente mais tarde')
+    })
+  })
 })

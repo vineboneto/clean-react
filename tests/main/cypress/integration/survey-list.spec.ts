@@ -48,7 +48,7 @@ describe('SurveyList', () => {
     Helper.testUrl('/login')
   })
 
-  it.only('Should present survey items', () => {
+  it('Should present survey items', () => {
     mockSuccess()
     cy.visit('')
     cy.get('li:not(:empty)').should('have.length', 2)
