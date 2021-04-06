@@ -18,8 +18,7 @@
     "test:coveralls": "yarn test:ci && coveralls < coverage/lcov.info",
     "test:cypress": "cypress open",
     "test:cypress:run": "cypress run",
-    "test:cypress:ci": "start-server-and-test dev:base http-get://localhost:8080 test:cypress:run",
-    "prepare": "husky install"
+    "test:cypress:ci": "start-server-and-test dev:base http-get://localhost:8080 test:cypress:run"
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^5.4.5",
