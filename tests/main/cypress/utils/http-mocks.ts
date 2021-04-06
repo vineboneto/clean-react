@@ -1,36 +1,47 @@
-import { Method } from 'axios'
 import faker from 'faker'
 
-export const mockUnauthorizedError = (url: string): void => {
-  cy.intercept('POST', url, {
-    statusCode: 401,
-    body: {
+export const mockUnauthorizedError = (url: RegExp): void => {
+  cy.server()
+  cy.route({
+    method: 'POST',
+    url,
+    status: 401,
+    response: {
       error: faker.random.words()
     }
   }).as('request')
 }
 
-export const mockForbiddenError = (url: string, method: Method): void => {
-  cy.intercept(method, url, {
-    statusCode: 403,
-    body: {
+export const mockForbiddenError = (url: RegExp, method: string): void => {
+  cy.server()
+  cy.route({
+    method,
+    url,
+    status: 403,
+    response: {
       error: faker.random.words()
     }
   }).as('request')
 }
 
-export const mockServerError = (url: string, method: Method): void => {
-  cy.intercept(method, url, {
-    statusCode: faker.helpers.randomize([400, 404, 500]),
-    body: {
+export const mockServerError = (url: RegExp, method: string): void => {
+  cy.server()
+  cy.route({
+    method,
+    url,
+    status: faker.helpers.randomize([400, 404, 500]),
+    response: {
       error: faker.random.words()
     }
   }).as('request')
 }
 
-export const mockOk = (url: string, method: Method, body: any): void => {
-  cy.intercept(method, url, {
-    statusCode: 200,
-    body
+export const mockOk = (url: RegExp, method: string, response: any): void => {
+  cy.server()
+  cy.route({
+    method,
+    url,
+    status: 200,
+    response
   }).as('request')
 }

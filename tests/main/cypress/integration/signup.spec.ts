@@ -4,14 +4,11 @@ import * as Http from '../utils/http-mocks'
 
 import faker from 'faker'
 
-const localServerUrl = '/signup'
-
-const mockEmailInUseError = (): void => Http.mockForbiddenError(localServerUrl, 'POST')
-const mockUnexpectedError = (): void => Http.mockServerError(localServerUrl, 'POST')
+const path = /signup/
+const mockEmailInUseError = (): void => Http.mockForbiddenError(path, 'POST')
+const mockUnexpectedError = (): void => Http.mockServerError(path, 'POST')
 const mockSuccess = (): void => {
-  cy.fixture('account').then(account => {
-    Http.mockOk(localServerUrl, 'POST', account)
-  })
+  cy.fixture('account').then(account => Http.mockOk(path, 'POST', account))
 }
 
 const populateFields = (): void => {
@@ -45,6 +42,14 @@ describe('SignUp', () => {
     cy.getByTestId('error-wrap').should('not.have.descendants')
   })
 
+  it('Should reset state on page load', () => {
+    cy.getByTestId('email').focus().type(faker.internet.email())
+    FormHelper.testInputStatus('email')
+    cy.getByTestId('login-link').click()
+    cy.getByTestId('signup-link').click()
+    FormHelper.testInputStatus('email', 'Campo obrigatório')
+  })
+
   it('Should present error state if form is invalid', () => {
     cy.getByTestId('name').focus().type(faker.random.alphaNumeric(3))
     FormHelper.testInputStatus('name', 'Valor inválido')
@@ -58,7 +63,7 @@ describe('SignUp', () => {
     cy.getByTestId('error-wrap').should('not.have.descendants')
   })
 
-  it('Should present error state if form is valid', () => {
+  it('Should present valid state if form is valid', () => {
     cy.getByTestId('name').focus().type(faker.random.alphaNumeric(7))
     FormHelper.testInputStatus('name')
     cy.getByTestId('email').focus().type(faker.internet.email())
@@ -79,10 +84,10 @@ describe('SignUp', () => {
     Helper.testUrl('/signup')
   })
 
-  it('Should present UnexpectedError on 400', () => {
+  it('Should present UnexpectedError on default error cases', () => {
     mockUnexpectedError()
     simulateValidSubmit()
-    FormHelper.testMainError('Tente novamente mais tarde')
+    FormHelper.testMainError('Algo de errado aconteceu. Tente novamente mais tarde')
     Helper.testUrl('/signup')
   })
 
@@ -102,7 +107,7 @@ describe('SignUp', () => {
     Helper.testHttpCallsCount(1)
   })
 
-  it('Should not submit if form is invalid', () => {
+  it('Should not call submit if form is invalid', () => {
     mockSuccess()
     cy.getByTestId('email').focus().type(faker.internet.email()).type('{enter}')
     Helper.testHttpCallsCount(0)
